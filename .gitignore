@@ -1,0 +1,8 @@
+node_modules
+package-lock.json
+dist
+workspace.code-workspace
+/.vscode
+.vscode
+/server/public
+/server
