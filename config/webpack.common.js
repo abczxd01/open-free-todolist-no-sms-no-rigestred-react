@@ -17,7 +17,7 @@ const htmlPluginEntries = templateFiles.map(
       hash: false,
       filename: template,
       template: path.resolve(environment.paths.source, template),
-    })
+    }),
 );
 
 module.exports = {
@@ -40,6 +40,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime'],
           },
         },
       },
