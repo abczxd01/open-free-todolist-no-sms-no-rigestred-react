@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+}
+
+@keyframes animationloadPage {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  animation: animationloadPage 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+.task-list {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
