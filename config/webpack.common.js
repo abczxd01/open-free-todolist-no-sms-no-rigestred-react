@@ -3,24 +3,12 @@ const fs = require('fs');
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const environment = require('./environment');
 
-const templateFiles = fs
-  .readdirSync(environment.paths.source)
-  .filter(file => path.extname(file).toLowerCase() === '.html');
-
-const htmlPluginEntries = templateFiles.map(
-  template =>
-    new HTMLWebpackPlugin({
-      inject: true,
-      hash: false,
-      filename: template,
-      template: path.resolve(environment.paths.source, template),
-    }),
-);
-
-module.exports = {
+const config = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
@@ -68,9 +56,24 @@ module.exports = {
     ],
   },
   plugins: [
-    ...htmlPluginEntries,
+    new HTMLWebpackPlugin({
+      inject: true,
+      hash: false,
+      filename: 'index.html',
+      template: path.resolve(environment.paths.public, 'index.html'),
+    }),
     new CleanWebpackPlugin({
       verbose: true,
     }),
   ],
 };
+if (environment.analyze) {
+  config.plugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false,
+    }),
+  );
+}
+
+module.exports = config;

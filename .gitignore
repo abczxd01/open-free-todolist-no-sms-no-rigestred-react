@@ -6,3 +6,4 @@ workspace.code-workspace
 .vscode
 /server/public
 /server/
+/coverage/**npm install --save-dev @testing-library/react

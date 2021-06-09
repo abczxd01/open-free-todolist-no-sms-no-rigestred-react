@@ -17,11 +17,11 @@ const configureDevServer = () => {
     contentBase: environment.paths.output,
     watchContentBase: true,
     publicPath: '/',
-    open: true,
+    open: false,
+    hot:false,
     historyApiFallback: true,
     compress: true,
     overlay: true,
-    hot: false,
     watchOptions: {
       poll: 300,
     },

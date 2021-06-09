@@ -20,8 +20,15 @@ module.exports = merge(baseConfig, {
   },
   optimization: {
     minimize: true,
+    runtimeChunk: 'single',
     splitChunks: {
-      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
     },
     minimizer: [
       new TerserPlugin({

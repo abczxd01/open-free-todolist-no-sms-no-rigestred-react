@@ -4,7 +4,8 @@ module.exports = {
   paths: {
     source: path.resolve(__dirname, '../src/'),
     output: path.resolve(__dirname, '../dist/'),
-    outputProd: path.resolve(__dirname, '../server/public'),
+    public: path.resolve(__dirname, '../public'),
+    outputProd: path.resolve(__dirname, '../server/static'),
   },
   server: {
     host: 'localhost',
@@ -14,4 +15,5 @@ module.exports = {
     images: 8192,
     fonts: 8192,
   },
+  analyze:false,
 };

@@ -4,26 +4,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports.configureCssLoaders = prod => {
-  const loaders = [];
-  if (prod) {
-    loaders.push({
-      loader: 'postcss-loader',
-      options: {
-        postcssOptions: {
-          config: path.resolve(__dirname, 'postcss.config.js'),
-        },
-      },
-    });
-  }
-  loaders.push({
-    loader: 'sass-loader',
-    options: {
-      sourceMap: true,
-    },
-  });
   return [
     {
-      test: /\.(css|sass|scss)$/,
+      test: /\.css$/,
       use: [
         {
           loader: prod ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -31,11 +14,34 @@ module.exports.configureCssLoaders = prod => {
         {
           loader: 'css-loader',
           options: {
-            sourceMap: true,
+            sourceMap: prod ? false : true,
             importLoaders: 2,
+            modules: true,
           },
         },
-        ...loaders,
+        {
+          loader: 'postcss-loader',
+          options: {
+            postcssOptions: {
+              config: path.resolve(__dirname, 'postcss.config.js'),
+            },
+          },
+        },
+      ],
+    },
+    {
+      test: /\.(sass|scss)$/,
+      use: [
+        {
+          loader: prod ? MiniCssExtractPlugin.loader : 'style-loader',
+        },
+        'css-loader',
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: prod ? false : true,
+          },
+        },
       ],
     },
   ];
@@ -50,25 +56,19 @@ module.exports.configureOutput = prod => {
 };
 
 module.exports.configureCopyWebpackPlugin = prod => {
-  const toCopyImages = path.resolve(
-    prod ? environment.paths.outputProd : environment.paths.output,
-    'assets/images'
-  );
   const toCopyPublic = path.resolve(
     prod ? environment.paths.outputProd : environment.paths.output,
-    'assets/public'
+    'assets/public',
   );
   return new CopyWebpackPlugin({
     patterns: [
       {
-        from: path.resolve(environment.paths.source, 'images'),
-        to: toCopyImages,
-        toType: 'dir',
-      },
-      {
-        from: path.resolve(environment.paths.source, 'public'),
+        from: path.resolve(environment.paths.public),
         to: toCopyPublic,
         toType: 'dir',
+        globOptions: {
+          ignore: ['**/index.*'],
+        },
       },
     ],
   });
