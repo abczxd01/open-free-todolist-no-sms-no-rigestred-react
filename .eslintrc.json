@@ -21,6 +21,7 @@
     "no-plusplus": "off",
     "react/jsx-closing-bracket-location": [1, "after-props"],
     "import/no-default-export": 2,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "import/no-unresolved": [2, { "ignore": [".svg"] }]
   }
 }
