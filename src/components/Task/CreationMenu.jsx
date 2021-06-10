@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import './CreationMenu.scss';
+import styles from './CreationMenu.module.scss';
 
 export const CreationMenu = () => {
   const [data, setData] = useState({ title: '', text: '' });
@@ -21,18 +21,16 @@ export const CreationMenu = () => {
     if (data.text) reqBody.text = data.text;
   };
   return (
-    <form className="creation-menu">
+    <form className={styles.creationMenu}>
       <input
         type="text"
         placeholder="Заголовок"
         value={data.title}
-        onChange={handleChange}
-      />
+        onChange={handleChange} />
       <textarea
         placeholder="Описание задачи"
         value={data.text}
-        onChange={handleChange}
-      />
+        onChange={handleChange} />
       <button type="submit" onClick={handleSubmit}>
         Сохранить
       </button>

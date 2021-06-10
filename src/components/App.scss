@@ -40,11 +40,3 @@ body {
   font-family: 'Roboto', sans-serif;
   animation: animationloadPage 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
-
-.task-list {
-  width: 100%;
-  max-width: 700px;
-  display: flex;
-  margin: 0 auto;
-  flex-direction: column;
-}

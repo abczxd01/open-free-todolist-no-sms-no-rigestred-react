@@ -1,9 +1,12 @@
 import React from 'react';
+import { TaskList } from '../Task/TaskList';
 
-import { Header } from '../Header/Header';
+import styles from './Pages.module.scss';
 
 export const Completed = () => (
   <>
-    <Header />
+    <div className={styles.wrapper}>
+      <TaskList completed />
+    </div>
   </>
 );
