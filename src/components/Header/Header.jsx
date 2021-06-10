@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Header.scss';
+
+import styles from './Header.module.scss';
+import searchIcon from '$img/search.svg';
 
 export const Header = () => {
   const [search, setSearch] = useState(false);
@@ -11,31 +13,29 @@ export const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header className={styles.header}>
       {search ? (
         <input
           type="text"
-          className="header__search-input"
-          onKeyPress={handleKeyPress}
-        />
+          className={styles.searchInput}
+          onKeyPress={handleKeyPress} />
       ) : (
         <>
-          <NavLink className="header__item" to="/">
+          <NavLink className={styles.item} to="/">
             ЗАДАЧИ
           </NavLink>
-          <NavLink className="header__item" to="/completed">
+          <NavLink className={styles.item} to="/completed">
             ЗАВЕРШЕННЫЕ
           </NavLink>
         </>
       )}
       <button
-        className="header__item"
+        className={styles.item}
         type="button"
         onClick={() => {
           setSearch(!search);
-        }}
-      >
-        <img src="./assets/images/search.svg" alt="search" />
+        }}>
+        <img src={searchIcon} alt="search" />
       </button>
     </header>
   );
