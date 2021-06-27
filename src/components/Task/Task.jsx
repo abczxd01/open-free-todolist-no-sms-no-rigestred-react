@@ -1,49 +1,68 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import propTypes from 'prop-types';
 
-import './Task.scss';
-import editIcon from './edit.svg';
-import deleteIcon from './delete.svg';
+import { deleteTask, updateTask } from './actions';
 
-export const Menu = ({ text }) => (
-  <div className="menu">
-    <textarea defaultValue={text ?? ''} />
-  </div>
-);
+import styles from './Task.module.scss';
+import editIcon from '$img/edit.svg';
+import deleteIcon from '$img/delete.svg';
 
-export const Task = ({ title, text, id, completed }) => {
-  const [edit, setEdit] = useState(false);
+export const Task = ({ task }) => {
+  const { title, text, id, completed } = task;
 
-  const [taskInfo, setTaskInfo] = useState({
-    title,
-    text,
-    id,
-    completed,
-  });
-  const handleChange = event => {};
-  const deleteTask = () => {};
-  const completeTask = () => {};
+  const dispatch = useDispatch();
+  const [showMenu, setShowMenu] = useState(false);
+  const changeShowMenu = () => setShowMenu(currShowMenu => !currShowMenu);
+  const removeTask = () => dispatch(deleteTask(id));
+  const completeTask = () => dispatch(updateTask({ id, completed: !completed }));
+
+  const updateTimerRef = useRef();
+  const handleUpdateTask = event => {
+    clearTimeout(updateTimerRef.current);
+    if (event.currentTarget.tagName === 'TEXTAREA') {
+      updateTimerRef.current = setTimeout(() => {
+        dispatch(updateTask({ id, text: event.target.value }));
+      }, 1000);
+    } else {
+      updateTimerRef.current = setTimeout(() => {
+        dispatch(updateTask({ id, title: event.target.value }));
+      }, 1000);
+    }
+  };
+
   return (
     <div>
-      <div className="task">
-        <label className="task__checkbox">
-          <input type="checkbox" />
+      <div className={styles.field}>
+        <label className={styles.checkbox} htmlFor="checkbox">
+          <input type="checkbox" id="checkbox" defaultChecked={completed} onChange={completeTask} />
           <span />
         </label>
-        <input type="text" value={title} className="task__text" />
-        <button
-          className="task__bth"
-          type="button"
-          onClick={() => {
-            setEdit(!edit);
-          }}>
+
+        <input type="text" defaultValue={title} className={styles.textInput} onChange={handleUpdateTask} />
+        <button className={styles.bth} type="button" onClick={changeShowMenu}>
           <img src={editIcon} alt="edit" />
         </button>
-        <button className="task__bth" type="button" onClick={deleteTask}>
+
+        <button className={styles.bth} type="button" onClick={removeTask}>
           <img src={deleteIcon} alt="delete" />
         </button>
       </div>
 
-      {edit && <Menu text={text} />}
+      {showMenu && (
+        <div className={styles.menu}>
+          <textarea defaultValue={text ?? ''} onChange={handleUpdateTask} />
+        </div>
+      )}
     </div>
   );
+};
+
+Task.propTypes = {
+  task: propTypes.exact({
+    title: propTypes.string.isRequired,
+    text: propTypes.string,
+    id: propTypes.string.isRequired,
+    completed: propTypes.bool.isRequired,
+  }).isRequired,
 };
