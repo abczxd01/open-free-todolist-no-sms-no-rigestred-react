@@ -3,9 +3,7 @@ const fs = require('fs');
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const BundleAnalyzerPlugin =
-  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const environment = require('./environment');
 
 const config = {
@@ -72,7 +70,7 @@ if (environment.analyze) {
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       openAnalyzer: false,
-    }),
+    })
   );
 }
 

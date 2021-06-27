@@ -8,5 +8,6 @@ node_modules/
 webpack.config.js
 postcss.config.js
 config
+__mocks__
 *.test.js
 coverage
