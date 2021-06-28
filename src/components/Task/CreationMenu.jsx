@@ -1,37 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { createTask } from './actions';
 
 import styles from './CreationMenu.module.scss';
 
 export const CreationMenu = () => {
-  const [data, setData] = useState({ title: '', text: '' });
-
-  const handleChange = event => {
-    if (event.target.tagName === 'TEXTAREA') {
-      setData({ title: data.title, text: event.target.value });
-    } else {
-      setData({ title: event.target.value, text: data.text });
-    }
-  };
-
+  const dispatch = useDispatch();
   const handleSubmit = event => {
     event.preventDefault();
-    if (!data.title && !data.text) return;
-    if (!data.title) return;
-    const reqBody = { title: data.title };
-    if (data.text) reqBody.text = data.text;
+    const title = event.currentTarget.title.value;
+    const text = event.currentTarget.text.value;
+    if (text) {
+      dispatch(createTask({ title, text }));
+    } else {
+      dispatch(createTask({ title }));
+    }
   };
   return (
-    <form className={styles.creationMenu}>
-      <input
-        type="text"
-        placeholder="Заголовок"
-        value={data.title}
-        onChange={handleChange} />
-      <textarea
-        placeholder="Описание задачи"
-        value={data.text}
-        onChange={handleChange} />
-      <button type="submit" onClick={handleSubmit}>
+    <form className={styles.creationMenu} onSubmit={handleSubmit}>
+      <input type="text" name="title" placeholder="Заголовок" required />
+      <textarea name="text" placeholder="Описание задачи" />
+      <button type="submit">
         Сохранить
       </button>
     </form>

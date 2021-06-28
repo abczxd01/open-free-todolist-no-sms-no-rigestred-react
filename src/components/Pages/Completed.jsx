@@ -6,7 +6,7 @@ import styles from './Pages.module.scss';
 export const Completed = () => (
   <>
     <div className={styles.wrapper}>
-      <TaskList completed />
+      <TaskList completedFilter />
     </div>
   </>
 );

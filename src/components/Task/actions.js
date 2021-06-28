@@ -1,12 +1,13 @@
-const SERVER_API = 'http://127.0.0.1:5000/api/tasks';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
+const SERVER_API = 'http://127.0.0.1:5000/api/tasks';
 const configureFetchOptions = (method, body) => ({
   method,
   headers: { 'Content-Type': 'application/json;charset=utf-8' },
   body: JSON.stringify(body),
 });
 
-const create = async data => {
+export const createTask = createAsyncThunk('tasks/create', async data => {
   const reqData = {
     title: data.title,
   };
@@ -19,63 +20,43 @@ const create = async data => {
   } catch (err) {
     return err;
   }
-};
+});
 
-const getAll = async () => {
+export const getAllTask = createAsyncThunk('tasks/getAll', async () => {
   try {
     const res = await fetch(SERVER_API);
-    return res.json();
+    const data = await res.json();
+    // console.log(data);
+    return data;
   } catch (err) {
+    // console.log(err);
     return err;
   }
-};
+});
 
-const getOne = async id => {
+export const getOneTask = createAsyncThunk('tasks/getOne', async id => {
   try {
     const res = await fetch(`${SERVER_API}/${id}`);
     return res.json();
   } catch (err) {
     return err;
   }
-};
+});
 
-const update = async data => {
-  const reqData = {};
-  if (data.id) {
-    reqData.id = data.id;
-  } else {
-    throw new Error('id undefined');
-  }
-  if (data.title) {
-    reqData.title = data.title;
-  }
-  if (data.text) {
-    reqData.text = data.text;
-  }
-  if (data.completed !== undefined) {
-    reqData.completed = data.completed;
-  }
+export const updateTask = createAsyncThunk('tasks/update', async data => {
   try {
-    const res = await fetch(`${SERVER_API}`, configureFetchOptions('PUT', reqData));
+    const res = await fetch(SERVER_API, configureFetchOptions('PUT', data));
     return res.json();
   } catch (err) {
     return err;
   }
-};
+});
 
-const remove = async id => {
+export const deleteTask = createAsyncThunk('tasks/delete', async id => {
   try {
     const res = await fetch(`${SERVER_API}/${id}`, { method: 'DELETE' });
     return res.json();
   } catch (err) {
     return err;
   }
-};
-
-const tasksRepository = {
-  create, getAll, getOne, remove, update,
-};
-
-export {
-  tasksRepository,
-};
+});

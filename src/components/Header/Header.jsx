@@ -15,10 +15,7 @@ export const Header = () => {
   return (
     <header className={styles.header}>
       {search ? (
-        <input
-          type="text"
-          className={styles.searchInput}
-          onKeyPress={handleKeyPress} />
+        <input type="text" className={styles.searchInput} onKeyPress={handleKeyPress} />
       ) : (
         <>
           <NavLink className={styles.item} to="/">
