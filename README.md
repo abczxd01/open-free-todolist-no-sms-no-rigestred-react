@@ -1,4 +1,4 @@
-# open-free-todolist-no-sms-no-rigestred ✔
+# open-free-todolist-no-sms-no-rigestred-react ✔
 ![Version](https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000)
 [![License: MIT](https://img.shields.io/github/license/abczxd01/open-free-todolist-no-sms-no-rigestred)](https://github.com/abczxd01/open-free-todolist-no-sms-no-rigestred/blob/master/LICENSE)
 
@@ -40,6 +40,6 @@ start https://localhost:5000
 
 Copyright © 2021 [abczxd01](https://github.com/abczxd01).
 
-This project is [MIT](https://github.com/abczxd01/open-free-todolist-no-sms-no-rigestred/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/abczxd01/open-free-todolist-no-sms-no-rigestred-react/blob/master/LICENSE) licensed.
 
 ***
