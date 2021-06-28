@@ -5,5 +5,4 @@ workspace.code-workspace
 /.vscode
 .vscode
 /server/public
-/server/
 /coverage/**
