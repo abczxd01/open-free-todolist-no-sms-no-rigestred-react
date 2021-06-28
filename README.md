@@ -8,13 +8,13 @@
 
 ```sh
 yarn
-cd server/; npm install
+cd server/; yarn
 ```
 
 ## Usage
 ```sh
 yarn prod
-cd server/; npm run server
+cd server/; yarn server
 ```
 Linux:
 ```sh
